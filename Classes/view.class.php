@@ -12,8 +12,11 @@ class View {
       
       foreach ($array_table as $K => $TABLE) 
 	  {
-        $menu .= " <a href='?T=".$TABLE[0]."'>[ ".strtoupper($TABLE[0])." ]</a>";
-      }
+			foreach($TABLE as $value)
+			{
+				$menu .= " <a href='?T=".$value."'>[ ".strtoupper($value)." ]</a>";
+			}
+	  }
       $menu .= "</div>";
       
       return $menu;
@@ -24,28 +27,47 @@ class View {
 		$choix = " Vous avez choisi la table ".$_GET['T'].". Que souhaitez vous faire : ";
         $choix .= " <a href='?T=".$_GET['T']."&amp;detail=afficher'>Afficher</a></li> ";
 		$choix .= " <a href='?T=".$_GET['T']."&amp;detail=supprimer'>Supprimer</a></li> ";
-		$choix .= " <a href='?T=".$_GET['T']."&amp;detail=modifier'>Modifier</a></li> ";
         return $choix;
     }
     
     public static function affichage($res) //Affichage
 	{
         $aff = "<table border='1'>";
-        foreach($res as $ligne){
+		$i=0;
+		$j=0;
+		$titre= NULL;
+        foreach($res as $Key0 => $ligne){
             $aff .= "<tr>";
-            foreach($ligne as $column)
+            foreach($ligne as $Key => $column)
 			{
-                $aff.= "<td>$column</td>";
+				if($i==0)
+				{
+					$titre[$j]=$Key;
+					$j++;
+				}
+                $aff.= "<td>$column</td>";				
             }
-            $aff.= "</tr>";
+            $aff.= "<td><a href='?T=".$_GET['T']."&amp;header=".$titre[0]."&amp;value=".$ligne[$titre[0]]."&amp;detail=supligne'><img id='croix' src='./Fichiers/images/letter_x.png'></a></td>";
+			$aff.= "<td><a href='#'> <img src='./Fichiers/images/edit18.png'></a></td></tr>";
+			$i++;
         }
-        $aff.="</table>";
+		$aff.= "<thead><tr>";
+		foreach($titre as $Key2 => $title)
+		{
+			$aff .= "<th>".$title."</th>";
+		}
+        $aff.="</tr></thead></table>";
         return $aff;
     }
 	
-	public function supprimer() //Supprimer
+	public static function supprimer() //Supprimer table
 	{
        echo "La table ".$_GET['T']." a bien été supprimée ";
+    }
+	
+	public static function supligne() //Supprimer ligne
+	{
+       echo "La ligne a bien été supprimée ";
     }
 	
     // html final rendering

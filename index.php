@@ -33,12 +33,21 @@ else if(isset($_GET["T"]) && ($_GET["detail"] == 'afficher'))
 else if(isset($_GET["T"]) && ($_GET["detail"] == 'supprimer'))
 {
     $OUTPUT .=View::supprimer($MODEL->req("DROP TABLE ".$_GET["T"]));
+	$OUTPUT .= View::MenuTable($MODEL->Name_DB(), $MODEL->req("SHOW TABLES"));
 }
 
 /*elseif(isset($_GET["T"]) && ($_GET["detail"] == 'modifier'))
 {
     $OUTPUT .=View::affichage($MODEL->request("INSERT INTO ."$_GET["T"]."VALUES ('valeur 1', 'valeur 2', ...)"));
 }*/
+
+else if(isset($_GET["T"]) && ($_GET["detail"] == 'supligne'))
+{
+    $OUTPUT .=View::supligne($MODEL->req("DELETE FROM ".$_GET["T"]." WHERE ".$_GET["header"]." = ".$_GET["value"]));
+	$OUTPUT .=View::affichage($MODEL->req("SELECT * FROM ".$_GET["T"]));
+}
+
+
 
 else
 {
