@@ -37,7 +37,7 @@ else if(isset($_GET["T"]) && ($_GET["detail"] == 'supprimer'))
 
 /*elseif(isset($_GET["T"]) && ($_GET["detail"] == 'modifier'))
 {
-    $OUTPUT .=View::affichage($MODEL->request("SELECT * FROM ".$_GET["T"]));
+    $OUTPUT .=View::affichage($MODEL->request("INSERT INTO ."$_GET["T"]."VALUES ('valeur 1', 'valeur 2', ...)"));
 }*/
 
 else
