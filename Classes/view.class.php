@@ -48,7 +48,7 @@ class View {
                 $aff.= "<td>$column</td>";				
             }
             $aff.= "<td><a href='?T=".$_GET['T']."&amp;header=".$titre[0]."&amp;value=".$ligne[$titre[0]]."&amp;detail=supligne'><img id='croix' src='./Fichiers/images/letter_x.png'></a></td>";
-			$aff.= "<td><a href='#'> <img src='./Fichiers/images/edit18.png'></a></td></tr>";
+			$aff.= "<td><a href='?T=".$_GET['T']."&amp;header=".$titre[0]."&amp;value=".$ligne[$titre[0]]."&amp;detail=affmodifier'> <img src='./Fichiers/images/edit18.png'></a></td></tr>";
 			$i++;
         }
 		$aff.= "<thead><tr>";
@@ -71,7 +71,8 @@ class View {
     }
 	
     // html final rendering
-    public static function HTML ($title, $contener) {
+    public static function HTML ($title, $contener) 
+	{
       echo "<html>
       <head>
         <title>".$title."</title>
@@ -85,7 +86,25 @@ class View {
       </body>
       </html>";
     }
-    
+	
+	public static function affmodifier($res) 
+	{
+		$form="<html>";
+		$form .="<body>";
+		$form .= "<form action='#' methos='GET'>";
+		
+		$id=$_GET['value'];
+
+            foreach($res as $Key => $value)
+			{
+                $form .="<input type='text' name='".$value."' value='".$value."'";				
+            }
+            $form .= "</form>";
+			$form .= "</body>";
+			$form .= "</html>";
+			
+			return $form;
+        }  
 }
 
 ?>
